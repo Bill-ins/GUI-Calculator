@@ -37,7 +37,7 @@ public class Controller {
                 operator = getBtnTxt;
                 label.setText("");
             }
-            if(operationWithResult) {
+            else if(operationWithResult) {
                 number1 = result;
             } else {
                 number1 = Double.parseDouble(label.getText());
