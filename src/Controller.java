@@ -69,7 +69,7 @@ public class Controller {
     }
 
     @FXML
-    public void clearEverything () {
+    public void clearEverything() {
         operator = "";
         flag = true;
         label.setText("");
@@ -78,7 +78,7 @@ public class Controller {
     }
 
     @FXML
-    public void backSpace () {
+    public void backSpace() {
         StringBuilder stringBuilderLabel = new StringBuilder(label.getText());
         int length = (stringBuilderLabel.length() - 1);
         stringBuilderLabel = stringBuilderLabel.deleteCharAt(length);
