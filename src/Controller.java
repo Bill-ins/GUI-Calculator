@@ -38,6 +38,7 @@ public class Controller {
                 number2 = Double.parseDouble(label.getText());
                 number1 = operations.calc(number1,number2,operator);
                 operator = getBtnTxt;
+                label.setText("" + number1);
                 flag = true;
             }
             else if(operationWithResult) {
