@@ -64,7 +64,7 @@ public class Controller {
         number1 = Double.parseDouble(label.getText());
         operatorLabel.setText(((Button)event.getSource()).getText());
         result = number1/100;
-        label.setText(label.getText() + result);
+        label.setText("" + result);
         operationWithResult = true;
     }
 
