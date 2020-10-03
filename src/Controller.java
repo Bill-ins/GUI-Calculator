@@ -8,6 +8,8 @@ public class Controller {
 
     @FXML
     Label label;
+    @FXML
+    Label operatorLabel;
     double result;
     private double number1;
     private double number2;
@@ -30,12 +32,13 @@ public class Controller {
     @FXML
     public void operatorButtonControl(ActionEvent event) {
         String getBtnTxt = ((Button)event.getSource()).getText();
+        operatorLabel.setText(getBtnTxt);
         if(!getBtnTxt.equals("=")) {
             if(!operator.isEmpty()) {
                 number2 = Double.parseDouble(label.getText());
                 number1 = operations.calc(number1,number2,operator);
                 operator = getBtnTxt;
-                label.setText("");
+                flag = true;
             }
             else if(operationWithResult) {
                 number1 = result;
@@ -43,7 +46,7 @@ public class Controller {
                 number1 = Double.parseDouble(label.getText());
             }
             operator = getBtnTxt;
-            label.setText("");
+            flag = true;
         } else {
             if(operator.isEmpty()) return;
             number2 = Double.parseDouble(label.getText());
@@ -56,9 +59,9 @@ public class Controller {
     }
 
     @FXML
-    public void modulusOperation() {
+    public void modulusOperation(ActionEvent event) {
         number1 = Double.parseDouble(label.getText());
-        label.setText("");
+        operatorLabel.setText(((Button)event.getSource()).getText());
         result = number1/100;
         label.setText(label.getText() + result);
         operationWithResult = true;
@@ -70,6 +73,7 @@ public class Controller {
         flag = true;
         label.setText("");
         operationWithResult = false;
+        operatorLabel.setText("");
     }
 
     @FXML
