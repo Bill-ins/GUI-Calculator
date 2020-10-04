@@ -16,6 +16,8 @@ public class Controller {
     private String operator = "";
     private boolean flag = true;
     private boolean operationWithResult = false;
+    boolean typo = false;
+
     Operations operations = new Operations();
 
     @FXML
@@ -27,36 +29,30 @@ public class Controller {
         String getBtnTxt = ((Button) event.getSource()).getText();
         label.setText(label.getText() + getBtnTxt);
         operationWithResult = false;
+        typo = true;
     }
 
     @FXML
     public void operatorButtonControl(ActionEvent event) {
         String getBtnTxt = ((Button)event.getSource()).getText();
         operatorLabel.setText(getBtnTxt);
-        if(!getBtnTxt.equals("=")) {
-            if(!operator.isEmpty()) {
+
+        if(!operator.isEmpty()) {
+            if(typo){
                 number2 = Double.parseDouble(label.getText());
-                number1 = operations.calc(number1,number2,operator);
-                operator = getBtnTxt;
+                number1 = operations.calc(number1, number2, operator);
                 label.setText("" + number1);
-                flag = true;
+                typo = false;
             }
-            else if(operationWithResult) {
-                number1 = result;
-            } else {
-                number1 = Double.parseDouble(label.getText());
-            }
-            operator = getBtnTxt;
-            flag = true;
-        } else {
-            if(operator.isEmpty()) return;
-            number2 = Double.parseDouble(label.getText());
-            result = operations.calc(number1,number2,operator);
-            label.setText(String.valueOf(result));
-            operator = "";
-            flag = true;
-            operationWithResult = true;
         }
+        else if(operationWithResult) {
+            number1 = result;
+        } else {
+            number1 = Double.parseDouble(label.getText());
+            typo = false;
+        }
+        operator = getBtnTxt;
+        flag = true;
     }
 
     @FXML
@@ -69,7 +65,18 @@ public class Controller {
     }
 
     @FXML
-    public void clearEverything() {
+    public void resultOperation() {
+        if(operator.isEmpty()) return;
+        number2 = Double.parseDouble(label.getText());
+        result = operations.calc(number1,number2,operator);
+        label.setText("" + result);
+        operator = "";
+        flag = true;
+        operationWithResult = true;
+    }
+
+    @FXML
+    public void clearEverything () {
         operator = "";
         flag = true;
         label.setText("");
@@ -78,7 +85,7 @@ public class Controller {
     }
 
     @FXML
-    public void backSpace() {
+    public void backSpace () {
         StringBuilder stringBuilderLabel = new StringBuilder(label.getText());
         int length = (stringBuilderLabel.length() - 1);
         stringBuilderLabel = stringBuilderLabel.deleteCharAt(length);
